@@ -1,7 +1,7 @@
 package main
 
 import (
-	"time"
+	"fmt"
 
 	"github.com/ElHefe3/resume-api/config"
 	handler "github.com/ElHefe3/resume-api/handlers"
@@ -15,18 +15,21 @@ func main() {
 
 	r := gin.Default()
 
+	r.Use(func(c *gin.Context) {
+		fmt.Printf(">> %s %s  Origin=%s\n",
+			c.Request.Method, c.Request.URL.Path, c.Request.Header.Get("Origin"))
+		c.Next()
+	})
+	
+
 	// 🔑  CORS policy
 	r.Use(cors.New(cors.Config{
-		AllowOrigins: []string{
-			"http://192.168.1.157:4173", // SPA dev host
-			// add http://<temp‑server>:<port> if you host UI elsewhere
-		},
+		AllowAllOrigins:  true,
 		AllowMethods:     []string{"GET", "POST", "OPTIONS"},
-		AllowHeaders:     []string{"Content-Type", "Authorization"},
-		ExposeHeaders:    []string{"Content-Length"},
-		AllowCredentials: true,            // only if your fetch() sends cookies / auth header
-		MaxAge:           12 * time.Hour,  // cache pre‑flight
+		AllowHeaders:     []string{"*"},
+		AllowCredentials: false,   // must be false when AllowAllOrigins is true
 	}))
+	
 
 	// routes
 	r.GET("/directories", handler.RetrieveFilesDirectories)
