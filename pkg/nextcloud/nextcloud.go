@@ -5,6 +5,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 
 	"github.com/ElHefe3/resume-api/config"
@@ -24,8 +25,10 @@ func RetrieveFilesDirectories() ([]string, error) {
 	password := config.Cfg.NextcloudPassword
     filepath := config.Cfg.NextcloudFilesDirectory
 
+    log.Println(url+"/remote.php/dav/files/"+username+filepath)
+
 	client := &http.Client{}
-	req, err := http.NewRequest("PROPFIND", url+"/remote.php/dav/files/"+username+filepath, bytes.NewBuffer([]byte{}))
+	req, err := http.NewRequest("PROPFIND", url+"/remote.php/dav/files/"+username+"/"+filepath, bytes.NewBuffer([]byte{}))
 	if err != nil {
 		return nil, err
 	}
