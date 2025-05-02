@@ -5,7 +5,6 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io"
-	"log"
 	"net/http"
 
 	"github.com/ElHefe3/resume-api/config"
@@ -23,12 +22,10 @@ func RetrieveFilesDirectories() ([]string, error) {
 	url := config.Cfg.NextcloudURL
 	username := config.Cfg.NextcloudUsername
 	password := config.Cfg.NextcloudPassword
-    filepath := config.Cfg.NextcloudFilesDirectory
-
-    log.Println(url+"/remote.php/dav/files/"+username+filepath)
+    filePath := config.Cfg.NextcloudFilesDirectory
 
 	client := &http.Client{}
-	req, err := http.NewRequest("PROPFIND", url+"/remote.php/dav/files/"+username+"/"+filepath, bytes.NewBuffer([]byte{}))
+	req, err := http.NewRequest("PROPFIND", url+"/remote.php/dav/files/"+username+"/"+filePath, bytes.NewBuffer([]byte{}))
 	if err != nil {
 		return nil, err
 	}
@@ -64,10 +61,11 @@ func RetrieveFilesDirectories() ([]string, error) {
 	return files, nil
 }
 
-func RetrieveFile(filePath string) ([]byte, string, error) {
-	url := config.Cfg.NextcloudURL + filePath
-	username := config.Cfg.NextcloudUsername
+func RetrieveFile(fileName string) ([]byte, string, error) {
+    username := config.Cfg.NextcloudUsername
 	password := config.Cfg.NextcloudPassword
+    filePath := config.Cfg.NextcloudFilesDirectory
+	url := config.Cfg.NextcloudURL +"/remote.php/dav/files/"+username+"/"+filePath+"/"+fileName
 
 	client := &http.Client{}
 	req, err := http.NewRequest("GET", url, nil)
