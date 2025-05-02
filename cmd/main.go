@@ -1,6 +1,8 @@
 package main
 
 import (
+	"time"
+
 	"github.com/ElHefe3/resume-api/config"
 	handler "github.com/ElHefe3/resume-api/handlers"
 
@@ -15,10 +17,15 @@ func main() {
 
 	// 🔑  CORS policy
 	r.Use(cors.New(cors.Config{
-		AllowAllOrigins: true,          // OR: AllowOrigins: []string{"*"}
-		AllowMethods:   []string{"GET", "POST", "OPTIONS"},
-		AllowHeaders:   []string{"Content-Type", "Authorization"},
-		AllowCredentials: false,        // must be false when AllowAllOrigins is true
+		AllowOrigins: []string{
+			"http://192.168.1.157:4173", // SPA dev host
+			// add http://<temp‑server>:<port> if you host UI elsewhere
+		},
+		AllowMethods:     []string{"GET", "POST", "OPTIONS"},
+		AllowHeaders:     []string{"Content-Type", "Authorization"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,            // only if your fetch() sends cookies / auth header
+		MaxAge:           12 * time.Hour,  // cache pre‑flight
 	}))
 
 	// routes
