@@ -5,6 +5,7 @@ import (
 
 	"github.com/ElHefe3/resume-api/config"
 	handler "github.com/ElHefe3/resume-api/handlers"
+	"github.com/ElHefe3/resume-api/middleware"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -30,6 +31,7 @@ func main() {
 		AllowCredentials: false,   // must be false when AllowAllOrigins is true
 	}))
 	
+	r.Use(middleware.AuthMiddleware())
 
 	// routes
 	r.GET("/directories", handler.RetrieveFilesDirectories)
