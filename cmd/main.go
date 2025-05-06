@@ -28,7 +28,7 @@ func main() {
 		AllowOrigins:     []string{config.Cfg.FeUrl},
 		AllowMethods:     []string{"GET", "OPTIONS"},
 		AllowHeaders:     []string{"*"},
-		AllowCredentials: false,
+		AllowCredentials: true,
 	}))
 	
 	r.Use(middleware.AuthMiddleware())
@@ -37,5 +37,5 @@ func main() {
 	r.GET("/directories", handler.RetrieveFilesDirectories)
 	r.GET("/file", handler.ServeMarkdownPage)
 
-	r.Run(":8900")
+	r.Run(":44300")
 }
