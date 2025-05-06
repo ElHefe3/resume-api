@@ -18,6 +18,8 @@ func RetrieveFilesDirectories(c *gin.Context) {
 		return
 	}
 
+	log.Println("🤖: ", fullPaths)
+
 	var files []string
 	for _, p := range fullPaths {
 		if strings.HasSuffix(p, "/") || path.Ext(p) != ".md" {
