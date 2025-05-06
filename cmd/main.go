@@ -25,10 +25,10 @@ func main() {
 
 	// 🔑  CORS policy
 	r.Use(cors.New(cors.Config{
-		AllowAllOrigins:  true,
-		AllowMethods:     []string{"GET", "POST", "OPTIONS"},
+		AllowOrigins:     []string{config.Cfg.FeUrl},
+		AllowMethods:     []string{"GET", "OPTIONS"},
 		AllowHeaders:     []string{"*"},
-		AllowCredentials: false,   // must be false when AllowAllOrigins is true
+		AllowCredentials: false,
 	}))
 	
 	r.Use(middleware.AuthMiddleware())

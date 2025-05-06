@@ -13,6 +13,7 @@ type Config struct {
 	NextcloudPassword 		string
 	NextcloudFilesDirectory string
 	AuthToken 				string
+	FeUrl					string
 }
 
 var Cfg Config
@@ -26,6 +27,7 @@ func Load() {
 		NextcloudPassword: 			getEnv("NEXTCLOUD_PASSWORD", ""),
 		NextcloudFilesDirectory: 	getEnv("NEXTCLOUD_FILES_DIRECTORY", ""),
 		AuthToken:					getEnv("AUTH_TOKEN", ""),
+		FeUrl: 						getEnv("FE_URL", ""),
 	}
 
 	if Cfg.NextcloudURL == "" || Cfg.NextcloudUsername == "" || Cfg.NextcloudPassword == "" || Cfg.NextcloudFilesDirectory == "" || Cfg.AuthToken == "" {
