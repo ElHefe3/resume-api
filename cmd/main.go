@@ -37,5 +37,5 @@ func main() {
 	r.GET("/directories", handler.RetrieveFilesDirectories)
 	r.GET("/file", handler.ServeMarkdownPage)
 
-	r.Run(":44300")
+	r.Run(":44000")
 }
