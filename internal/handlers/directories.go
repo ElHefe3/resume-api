@@ -4,9 +4,8 @@ import (
 	"log"
 	"net/http"
 	"path"
-	"strings"
 
-	"github.com/ElHefe3/resume-api/pkg/nextcloud"
+	"github.com/ElHefe3/resume-api/internal/services/nextcloud"
 	"github.com/gin-gonic/gin"
 )
 
@@ -22,9 +21,9 @@ func RetrieveFilesDirectories(c *gin.Context) {
 
 	var files []string
 	for _, p := range fullPaths {
-		if strings.HasSuffix(p, "/") || path.Ext(p) != ".md" {
-			continue
-		}
+		// if strings.HasSuffix(p, "/") || path.Ext(p) != ".md" {
+		// 	continue
+		// }
 
 		files = append(files, path.Base(p))
 	}

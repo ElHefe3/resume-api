@@ -3,7 +3,7 @@ package middleware
 import (
 	"net/http"
 
-	"github.com/ElHefe3/resume-api/config"
+	"github.com/ElHefe3/resume-api/internal/config"
 	"github.com/gin-gonic/gin"
 )
 

@@ -3,9 +3,8 @@ package main
 import (
 	"fmt"
 
-	"github.com/ElHefe3/resume-api/config"
-	handler "github.com/ElHefe3/resume-api/handlers"
-	"github.com/ElHefe3/resume-api/middleware"
+	"github.com/ElHefe3/resume-api/internal/config"
+	"github.com/ElHefe3/resume-api/internal/routes"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -30,12 +29,9 @@ func main() {
 		AllowHeaders:     []string{"*"},
 		AllowCredentials: true,
 	}))
-	
-	r.Use(middleware.AuthMiddleware())
 
 	// routes
-	r.GET("/directories", handler.RetrieveFilesDirectories)
-	r.GET("/file", handler.ServeMarkdownPage)
+	routes.RegisterRoutes(r)
 
 	r.Run(":44000")
 }

@@ -7,7 +7,7 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/ElHefe3/resume-api/config"
+	"github.com/ElHefe3/resume-api/internal/config"
 )
 
 type MultiStatus struct {
